@@ -1,0 +1,47 @@
+{
+  "env": {
+    "es2023": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended", "prettier", "plugin:node/recommended"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "warn",
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "none",
+        "ignoreRestSiblings": false
+      }
+    ],
+    "no-var": "error",
+    "prefer-const": "error",
+    "arrow-body-style": ["error", "as-needed"],
+    "eqeqeq": ["error", "always"],
+    "no-duplicate-imports": "error",
+    "node/no-unsupported-features/es-syntax": [
+      "error",
+      {
+        "version": ">=22.11.0",
+        "ignores": []
+      }
+    ],
+    "node/no-missing-import": [
+      "error",
+      {
+        "allowModules": [],
+        "resolvePaths": [],
+        "tryExtensions": [".js", ".json", ".node"]
+      }
+    ]
+  },
+  "settings": {
+    "node": {
+      "tryExtensions": [".js", ".json", ".node"]
+    }
+  }
+}
