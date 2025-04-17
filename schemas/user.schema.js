@@ -3,10 +3,8 @@ const Joi = require('joi').extend(require('@joi/date')),
   JoiPassword = Joi.extend(joiPasswordExtendCore);
 
 const id = Joi.number().integer().min(1),
-  departmentId = Joi.number().integer().min(1),
   name = Joi.string().min(1).trim(),
   lastName = Joi.string().min(1).trim(),
-  birthdate = Joi.date().format('YYYY-MM-DD').raw(),
   email = Joi.string().email().lowercase(),
   password = JoiPassword.string()
     .minOfSpecialCharacters(2)
@@ -16,6 +14,9 @@ const id = Joi.number().integer().min(1),
     .noWhiteSpaces()
     .onlyLatinCharacters()
     .doesNotInclude([
+      'admin',
+      'ADMIN',
+      'Admin',
       'password',
       'PASSWORD',
       'Password',
@@ -26,41 +27,22 @@ const id = Joi.number().integer().min(1),
       'Pass',
     ]),
   recoveryToken = Joi.string().token(),
-  role = Joi.string().trim().valid('hr', 'admin', 'employee'),
-  startDate = Joi.date().format('YYYY-MM-DD').raw(),
-  separationDate = Joi.date()
-    .format('YYYY-MM-DD')
-    .raw()
-    .min(Joi.ref('startDate')),
-  vacationDays = Joi.number().integer().min(0),
-  isActive = Joi.boolean();
+  role = Joi.string().trim().valid('hr', 'admin', 'employee');
 
 const createUserSchema = Joi.object({
-  departmentId: departmentId.required(),
   name: name.required(),
   lastName: lastName.required(),
-  birthdate: birthdate.required(),
   email: email.required(),
   password: password.required(),
   role: role,
-  startDate: startDate.required(),
-  separationDate: separationDate,
-  vacationDays: vacationDays,
-  isActive: isActive,
 });
 
 const updateUserSchema = Joi.object({
-  departmentId: departmentId,
   name: name,
   lastName: lastName,
-  birthdate: birthdate,
   email: email,
   password: password,
   role: role,
-  startDate: startDate,
-  separationDate: separationDate,
-  vacationDays: vacationDays,
-  isActive: isActive,
 });
 
 const getUserSchema = Joi.object({

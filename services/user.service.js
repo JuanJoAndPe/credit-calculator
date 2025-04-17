@@ -18,14 +18,14 @@ class UsersService {
 
   async find() {
     const response = await models.User.findAll({
-      attributes: { exclude: ['password', 'recoveryToken', 'department_id'] },
+      attributes: { exclude: ['password', 'recoveryToken'] },
     });
     return response;
   }
 
   async findByEmail(email) {
     const response = await models.User.findOne({
-      where: { email: email, isActive: true },
+      where: { email: email },
       attributes: ['id', 'email', 'password', 'name', 'lastName', 'role'],
     });
     return response;
@@ -33,12 +33,7 @@ class UsersService {
 
   async findOne(id) {
     const user = await models.User.findByPk(id, {
-      attributes: { exclude: ['password', 'recoveryToken', 'department_id'] },
-      include: {
-        model: models.Department,
-        as: 'department',
-        attributes: { exclude: ['id', 'isActive', 'createdAt', 'updatedAt'] },
-      },
+      attributes: { exclude: ['password', 'recoveryToken'] },
     });
     if (!user) {
       throw boom.notFound('user not found');
@@ -50,7 +45,6 @@ class UsersService {
   async findForRecovery(id) {
     const user = await models.User.findByPk(id, {
       attributes: ['id', ['recovery_token', 'recoveryToken']],
-      where: { isActive: true },
     });
     if (!user) {
       throw boom.notFound('user not found');
