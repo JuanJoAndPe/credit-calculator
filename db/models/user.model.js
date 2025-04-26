@@ -55,7 +55,7 @@ const UserSchema = {
 class User extends Model {
   static associate(models) {
     // models
-    /* this.belongsTo(models.Department, { as: 'department' });
+    // this.belongsTo(models.Department, { as: 'department' });
     // this.belongsTo(models.Status, { as: 'status' });
 
     this.hasMany(models.Request, {
@@ -63,15 +63,6 @@ class User extends Model {
       foreignKey: 'userId',
     });
 
-    this.hasMany(models.Reservation, {
-      as: 'reservation',
-      foreignKey: 'userId',
-    });
-
-    this.hasMany(models.WorkDay, {
-      as: 'work_day',
-      foreignKey: 'userId',
-    }); */
   }
 
   static config(sequelize) {

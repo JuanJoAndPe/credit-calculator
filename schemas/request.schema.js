@@ -1,6 +1,7 @@
 const Joi = require('joi');
 
-const userId = Joi.number().integer().greater(0),
+const id = Joi.number().integer().min(1),
+  userId = Joi.number().integer().greater(0),
   productType = Joi.string()
     .min(3)
     .trim()
@@ -29,8 +30,8 @@ const userId = Joi.number().integer().greater(0),
     .max(1)
     .when('status', {
       switch: [
-        { is: 'casado/a', then: Joi.default('C') },
-        { is: 'separado/a', then: Joi.default('C') },
+        { is: 'casado/a', then: Joi.required().valid('C') },
+        { is: 'separado/a', then: Joi.required().valid('C') },
       ],
       otherwise: Joi.optional(),
     }),
@@ -56,7 +57,6 @@ const userId = Joi.number().integer().greater(0),
   numberOfChildren = Joi.number().integer().min(0).default(0);
 
 const createRequestSchema = Joi.object({
-  userId: userId.required(),
   productType: productType.required(),
   amount: amount.required(),
   loanTerm: loanTerm.required(),
@@ -74,6 +74,11 @@ const createRequestSchema = Joi.object({
   numberOfChildren: numberOfChildren,
 });
 
+const getRequestSchema = Joi.object({
+  id: id.required(),
+});
+
 module.exports = {
   createRequestSchema,
+  getRequestSchema,
 };

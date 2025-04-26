@@ -4,8 +4,10 @@ const UsersService = require('./user.service'),
   jwt = require('jsonwebtoken'),
   { config } = require('./../config/config'),
   service = new UsersService(),
-  nodemailer = require('nodemailer'),
-  expirationTime = 5;
+  nodemailer = require('nodemailer');
+
+const expirationTime = config.expirationTime,
+  encryptionTimes = config.encryptionTimes;
 
 class AuthService {
   async getUser(email, password) {
@@ -69,7 +71,7 @@ class AuthService {
       if (user.recoveryToken !== token) {
         throw boom.unauthorized();
       } else {
-        const hash = await bcrypt.hash(newPassword, 10);
+        const hash = await bcrypt.hash(newPassword, encryptionTimes);
         await service.update(user.id, { password: hash, recoveryToken: null });
         return { message: 'password has been changed' };
       }

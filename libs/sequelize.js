@@ -7,7 +7,6 @@ const logginOptions = config.isProd ? false : console.log;
 const options = {
   dialect: 'postgres',
   logging: logginOptions,
-  timezone: 'America/Guayaquil', // This ensures correct writing
   dialectOptions: {
     useUTC: false, // Prevents automatic conversion to UTC
   },

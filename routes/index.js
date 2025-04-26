@@ -12,7 +12,7 @@ function routerApi(app) {
 
   router.use('/users', userRouter);
   router.use('/auth', authRouter);
-  router.use('/request', requestRouter);
+  router.use('/requests', requestRouter);
 }
 
 module.exports = routerApi;

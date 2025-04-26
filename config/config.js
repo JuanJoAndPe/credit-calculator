@@ -17,6 +17,9 @@ const config = {
   emailPassword: process.env.EMAIL_PASS,
   emailPort: process.env.EMAIL_PORT,
   emailHost: process.env.EMAIL_HOST,
+  dummyPassword: process.env.DUMMY_PASSWORD,
+  expirationTime: process.env.EXPIRATION_TIME,
+  encryptionTimes: process.env.ENCRYPTION_TIMES,
 };
 
 module.exports = { config };
